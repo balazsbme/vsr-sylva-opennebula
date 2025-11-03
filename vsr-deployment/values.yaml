@@ -1,0 +1,18 @@
+cpu: 3
+memory: 2Gi
+shared_memory: 2Gi
+hugepages:
+  page_size: 2Mi
+  reserved_size: 6Gi
+replicaCount: 1
+image:
+  repository: download.6wind.com/vsr/x86_64-ce/3.9
+  tag: 3.9.4
+  pullPolicy: IfNotPresent
+imagePullSecrets:
+  - name: regcred
+nameOverride: ""
+fullnameOverride: ""
+ports:
+- name: sriov
+  resource_name: rancher.io/sriov
