@@ -14,5 +14,5 @@ imagePullSecrets:
 nameOverride: ""
 fullnameOverride: ""
 ports:
-- name: sriov
+- name: sriov-vsr-nad     # the NAD name created by the 'SriovNetwork'
   resource_name: rancher.io/sriov

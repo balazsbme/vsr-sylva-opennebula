@@ -5,7 +5,7 @@ metadata:
   name: sriov-vsr-nad                    # becomes the NAD name
   namespace: cattle-sriov-system         # the SRIOV system namespace that is watched by the operator for SriovNetworks
 spec:
-  resourceName: rancher.io/sriov
+  resourceName: sriov                 # a prefix will be added, e.g. "rancher.io/"
   networkNamespace: vsr-cell-site     # namespace where VSR runs
   #vlan: 0
   #spoofChk: "on"
