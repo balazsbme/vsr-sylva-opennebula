@@ -64,6 +64,9 @@ spec:
             - SYSLOG
             - SYS_RAWIO
             - SYS_CHROOT
+            - AUDIT_WRITE
+            - SYS_PTRACE
+            - SYS_TIME
         volumeMounts:
         - mountPath: /dev/hugepages
           name: hugepage
