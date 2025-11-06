@@ -53,20 +53,22 @@ spec:
             {{.resource_name}}: '1'
 {{- end}}
         securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-            - NET_RAW
-            - SYS_ADMIN
-            - SYS_NICE
-            - IPC_LOCK
-            - NET_BROADCAST
-            - SYSLOG
-            - SYS_RAWIO
-            - SYS_CHROOT
-            - AUDIT_WRITE
-            - SYS_PTRACE
-            - SYS_TIME
+          privileged: true
+          # NOTE: these capabilities are not enough for some reason, the pod ends up in CrashLoopback error
+          # capabilities:
+          #   add:
+          #   - NET_ADMIN
+          #   - NET_RAW
+          #   - SYS_ADMIN
+          #   - SYS_NICE
+          #   - IPC_LOCK
+          #   - NET_BROADCAST
+          #   - SYSLOG
+          #   - SYS_RAWIO
+          #   - SYS_CHROOT
+          #   - AUDIT_WRITE
+          #   - SYS_PTRACE
+          #   - SYS_TIME
         volumeMounts:
         - mountPath: /dev/hugepages
           name: hugepage
