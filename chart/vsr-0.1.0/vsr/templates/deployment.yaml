@@ -82,6 +82,9 @@ spec:
           name: run
         - mountPath: /run/lock
           name: run-lock
+        - mountPath: /etc/init-config/config.cli
+          name: init-config
+          subPath: vsr_init_config
       volumes:
       - emptyDir:
           medium: HugePages
@@ -107,3 +110,8 @@ spec:
           medium: Memory
           sizeLimit: 200Mi
         name: run-lock
+      - configMap:
+          defaultMode: 256
+          name: vsr3-day1-config
+        name: init-config
+
