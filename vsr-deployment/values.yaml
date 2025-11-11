@@ -16,3 +16,9 @@ fullnameOverride: ""
 ports:
 - name: sriov-vsr-nad-pt-vf     # the NAD name created by the 'SriovNetwork' or manually
   resource_name: rancher.io/sriov
+day1Config:
+  enabled: true
+  # licenseKey: "<LICENSE PROVIDED BY WG02 TEAM>"
+  hostname: VSR1
+  fastPath:
+    port: pci-b0s6

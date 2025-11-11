@@ -1,3 +1,7 @@
+{{- if .Values.day1Config.enabled }}
+{{- $cfg := .Values.day1Config }}
+{{- $configMapName := default (printf "%s-day1-config" .Release.Name) $cfg.configMapName }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -112,6 +116,6 @@ spec:
         name: run-lock
       - configMap:
           defaultMode: 256
-          name: vsr3-day1-config
+          name: {{ $configMapName }}
         name: init-config
 
