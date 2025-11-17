@@ -35,9 +35,6 @@ day1Config:
   #   trafficSelectors:
   #     local: 2.2.2.2/32
   #     remote: 1.1.1.1/32
-    physicalInterfaceCidr: 192.168.1.2/24
-  #   loopbackCidr: 2.2.2.2/32
-  #   vrrpVirtualCidr: 192.168.1.1/24
   # ikePolicy:
   #   template: ike1
   #   proposalId: 1
@@ -60,10 +57,12 @@ day1Config:
   #   svtiIdOut: 10
   interfaces:
     physical:
-      name: net1
+      name: eth1
       port: pci-b35s0
+      interfaceCidr: 10.16.3.251/24
     loopback:
-      name: lo
+      name: lo0
+      interfaceCidr: 127.0.0.1/32
   #   svti:
   #     name: svti-10
   #     id: 10
@@ -79,7 +78,8 @@ day1Config:
       enabled: true
       name: vrrp_ha
       version: 3
-      linkInterface: net1
+      linkInterface: eth1
+      virtualCidr: 192.168.1.1/24
       vrid: 1
       priority: 200
       notifyGroup: ha-group1

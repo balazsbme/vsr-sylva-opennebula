@@ -13,12 +13,11 @@
 {{- $trafficSelectors := default (dict) (index $addresses "trafficSelectors") }}
 {{- $tsLocal := default "" (index $trafficSelectors "local") }}
 {{- $tsRemote := default "" (index $trafficSelectors "remote") }}
-{{- $physicalInterfaceCidr := default "" (index $addresses "physicalInterfaceCidr") }}
-{{- $loopbackCidr := default "" (index $addresses "loopbackCidr") }}
-{{- $vrrpVirtualCidr := default "" (index $addresses "vrrpVirtualCidr") }}
 {{- $interfaces := default (dict) $cfg.interfaces }}
 {{- $physicalInterface := default (dict) (index $interfaces "physical") }}
+{{- $physicalInterfaceCidr := default "" (index $physicalInterface "interfaceCidr") }}
 {{- $loopbackInterface := default (dict) (index $interfaces "loopback") }}
+{{- $loopbackCidr := default "" (index $loopbackInterface "interfaceCidr") }}
 {{- $svtiInterface := default (dict) (index $interfaces "svti") }}
 {{- $ikePolicy := default (dict) $cfg.ikePolicy }}
 {{- $ipsecPolicy := default (dict) $cfg.ipsecPolicy }}
@@ -28,6 +27,7 @@
 {{- $ha := default (dict) $cfg.ha }}
 {{- $listenGroup := default $ha.groupName $ha.listenGroup }}
 {{- $vrrp := default (dict) (index $ha "vrrp") }}
+{{- $vrrpVirtualCidr := default "" (index $vrrp "virtualCidr") }}
 {{- $vrrpNotifyGroup := default $ha.groupName $vrrp.notifyGroup }}
 apiVersion: v1
 kind: ConfigMap
@@ -48,6 +48,10 @@ data:
 {{- if $preSharedKey.name }}
     / vrf main ike pre-shared-key {{ $preSharedKey.name }}
     / vrf main ike pre-shared-key {{ $preSharedKey.name }} secret {{ $preSharedKey.secret }}
+{{- end }}
+{{- if $ha.enabled }}
+    / ha
+    / ha group {{ $ha.groupName }}
 {{- end }}
 {{- if and $ha.enabled $haLocal $haRemote }}
     / vrf main ike ha
@@ -129,9 +133,5 @@ data:
 {{- end }}
 {{- if and $ha.enabled $vrrp.enabled }}
     / vrf main vrrp
-{{- end }}
-{{- if $ha.enabled }}
-    / ha
-    / ha group {{ $ha.groupName }}
 {{- end }}
 {{- end }}
