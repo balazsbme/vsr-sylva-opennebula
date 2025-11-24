@@ -59,7 +59,7 @@ day1Config:
       interfaceCidr: 10.16.3.253/24
     loopback:
       name: lo0
-      interfaceCidr: 2.2.2.2/32
+      interfaceCidr: 1.1.1.1/32
     svti:
       name: svti-10
       id: 10
