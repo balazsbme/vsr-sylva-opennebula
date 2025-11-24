@@ -29,32 +29,31 @@ day1Config:
     ha:
       local: 10.16.3.251
       remote: 10.16.3.252
-  #   vpn:
-  #     local: 192.168.1.1
-  #     remote: 192.168.1.4
-  #   trafficSelectors:
-  #     local: 2.2.2.2/32
-  #     remote: 1.1.1.1/32
-  # ikePolicy:
-  #   template: ike1
-  #   proposalId: 1
-  #   encryptionAlgorithm: aes128-cbc
-  #   authenticationAlgorithm: hmac-sha1
-  #   dhGroup: modp1024
-  #   rekeyTime: 2h
-  # ipsecPolicy:
-  #   template: ipsec1
-  #   espProposalId: 1
-  #   encryptionAlgorithm: aes128-cbc
-  #   authenticationAlgorithm: hmac-sha1
-  #   esn: true
-  #   replayWindow: 1024
-  #   startAction: ""
-  # vpn:
-  #   name: vpn-secgw
-  #   securityPolicyName: site-to-secgw-site
-  #   svtiIdIn: 10
-  #   svtiIdOut: 10
+    vpn:
+      local: 10.16.3.250
+      remote: 10.16.3.253
+    trafficSelectors:
+      local: 2.2.2.2/32
+      remote: 1.1.1.1/32
+  ikePolicy:
+    template: ike1
+    proposalId: 1
+    encryptionAlgorithm: aes128-cbc
+    authenticationAlgorithm: hmac-sha1
+    dhGroup: modp1024
+    rekeyTime: 2h
+  ipsecPolicy:
+    template: ipsec1
+    espProposalId: 1
+    encryptionAlgorithm: aes128-cbc
+    authenticationAlgorithm: hmac-sha1
+    esn: true
+    replayWindow: 1024
+  vpn:
+    name: vpn-secgw
+    securityPolicyName: site-to-secgw-site
+    svtiIdIn: 10
+    svtiIdOut: 10
   interfaces:
     physical:
       name: eth1
@@ -62,14 +61,14 @@ day1Config:
       interfaceCidr: 10.16.3.251/24
     loopback:
       name: lo0
-      interfaceCidr: 127.0.0.1/32
-  #   svti:
-  #     name: svti-10
-  #     id: 10
-  # routing:
-  #   staticRoutes:
-  #   - prefix: 1.1.1.1/32
-  #     nextHop: svti-10
+      interfaceCidr: 1.1.1.1/32
+    svti:
+      name: svti-10
+      id: 10
+  routing:
+    staticRoutes:
+    - prefix: 1.1.1.1/32
+      nextHop: svti-10
   ha:
     enabled: true
     groupName: ha-group1
@@ -79,7 +78,7 @@ day1Config:
       name: vrrp_ha
       version: 3
       linkInterface: eth1
-      virtualCidr: 192.168.1.1/24
+      virtualCidr: 10.16.3.250/24
       vrid: 1
       priority: 200
       notifyGroup: ha-group1

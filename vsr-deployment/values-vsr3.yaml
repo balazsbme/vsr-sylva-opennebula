@@ -19,22 +19,19 @@ ports:
 day1Config:
   enabled: true
   # licenseKey: "<LICENSE PROVIDED BY WG02 TEAM>"
-  hostname: VSR2
+  hostname: VSR3
   fastPath:
     port: pci-b35s0
   preSharedKey:
     name: secgw
     secret: sylva0123456789
   addresses:
-    ha:
-      local: 10.16.3.252
-      remote: 10.16.3.251
     vpn:
-      local: 10.16.3.250
-      remote: 10.16.3.253
+      local: 10.16.3.253
+      remote: 10.16.3.250
     trafficSelectors:
-      local: 2.2.2.2/32
-      remote: 1.1.1.1/32
+      local: 1.1.1.1/32
+      remote: 2.2.2.2/32
   ikePolicy:
     template: ike1
     proposalId: 1
@@ -49,6 +46,7 @@ day1Config:
     authenticationAlgorithm: hmac-sha1
     esn: true
     replayWindow: 1024
+    startAction: "start"
   vpn:
     name: vpn-secgw
     securityPolicyName: site-to-secgw-site
@@ -58,27 +56,16 @@ day1Config:
     physical:
       name: eth1
       port: pci-b35s0
-      interfaceCidr: 10.16.3.252/24
+      interfaceCidr: 10.16.3.253/24
     loopback:
       name: lo0
-      interfaceCidr: 1.1.1.1/32
+      interfaceCidr: 2.2.2.2/32
     svti:
       name: svti-10
       id: 10
   routing:
     staticRoutes:
-    - prefix: 1.1.1.1/32
+    - prefix: 2.2.2.2/32
       nextHop: svti-10
   ha:
-    enabled: true
-    groupName: ha-group1
-    listenGroup: ha-group1
-    vrrp:
-      enabled: true
-      name: vrrp_ha
-      version: 3
-      linkInterface: eth1
-      virtualCidr: 10.16.3.250/24
-      vrid: 1
-      priority: 200
-      notifyGroup: ha-group1
+    enabled: false
