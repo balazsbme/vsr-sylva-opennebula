@@ -1,9 +1,9 @@
-cpu: 3
-memory: 2Gi
-shared_memory: 2Gi
+cpu: 30
+memory: 8Gi
+shared_memory: 8Gi
 hugepages:
   page_size: 2Mi
-  reserved_size: 6Gi
+  reserved_size: 16Gi
 replicaCount: 1
 image:
   repository: harbor.rke2-capone-harbor.wclusters.sylva/library/vsr
